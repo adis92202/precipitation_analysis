@@ -8,6 +8,7 @@ SCRUM Board: https://student-team-xbkle2tpwdsd.atlassian.net/jira/software/proje
 
 ## Environment
 1. Clone this repository to your preferred location
-2. In Anaconda Prompt use `conda env create -f spi_env.yml` command
-3. Activate environment via `conda activate spi_env`
-4. Verify that the new environment was installed correctly `conda env list` - you should see `spi_env` on the list
+2. Go into this location
+3. In this location in Anaconda Prompt use `conda env create -f spi_env.yml` command
+4. Activate environment via `conda activate spi_env`
+5. Verify that the new environment was installed correctly `conda env list` - you should see `spi_env` on the list
