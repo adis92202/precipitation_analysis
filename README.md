@@ -19,3 +19,7 @@ SCRUM Board: https://student-team-xbkle2tpwdsd.atlassian.net/jira/software/proje
 7. Now, you can close Anaconda Prompt window
 
 ## Usage
+To run this project do the steps below:
+1. Open IDE like Visual Studio Code
+2. Activate environment via typing `conda activate command` in the terminal
+3. Run `some command with py script` to prepare the analysis
