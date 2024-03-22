@@ -1,1 +1,6 @@
-/data
+data/*
+src/__pycache__/__init__.cpython-311.pyc
+src/download/__pycache__/__init__.cpython-311.pyc
+src/download/__pycache__/download_changes.cpython-311.pyc
+src/download/__pycache__/download_precipitations.cpython-311.pyc
+src/download/__pycache__/download_stations.cpython-311.pyc
