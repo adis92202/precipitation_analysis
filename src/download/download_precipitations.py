@@ -3,11 +3,13 @@ from zipfile import BadZipFile
 from .download_changes import download_changes_data
 
 
-def save_df(df, name):
-    df.to_csv("../data/" + name)
+def get_colnames() -> list[str]:
+    """
+    Function for getting column names for dataframe
 
-
-def get_colnames():
+        Returns:
+            columns (list[str]): List of column names
+    """
     columns = [
         "station_code",
         "station_name",
@@ -30,7 +32,13 @@ def get_colnames():
     return columns
 
 
-def get_urls():
+def get_urls() -> list[str]:
+    """
+    Function for creating urls of files to be downloaded
+
+        Returns:
+            urls (list[str]): List of all url addresses of files to be downloaded
+    """
     base_url = "https://danepubliczne.imgw.pl/data/dane_pomiarowo_obserwacyjne/dane_meteorologiczne/dobowe/opad/"
     parent_dirs = ["1991_1995/", "1996_2000/"] + [
         str(i) + "/" for i in range(2001, 2024)
@@ -44,41 +52,77 @@ def get_urls():
     ]
     ending = "_o.zip"
 
-    return base_url, parent_dirs, child_dirs, ending
-
-
-def implement_changes(precipitation, changes, col):
-    precipitation[col] = precipitation[col].map(changes).fillna(precipitation[col])
-
-    return precipitation
-
-
-def download_precip_data():
-    columns = get_colnames()
-
-    base_url, parent_dirs, child_dirs, ending = get_urls()
-
-    dfs = []
+    urls = []
 
     for i in range(len(parent_dirs)):
         p = parent_dirs[i]
         cds = child_dirs[i]
         for cd in cds:
             url = base_url + p + cd + ending
+            urls.append(url)
 
-            try:
-                precip = pd.read_csv(
-                    url,
-                    header=None,
-                    names=columns,
-                    encoding="cp1250",
-                    compression={"method": "zip"},
-                )
-            except BadZipFile:
-                print(f"{cd} is corrupted, going to the next file")
-                continue
+    return urls
 
-            dfs.append(precip)
+
+def implement_changes(
+    precipitation: pd.DataFrame, changes: dict, col: str
+) -> pd.DataFrame:
+    """Function for implementing changes from 'Opis.txt' file
+
+    Parameters:
+        precipitation (pd.DataFrame): data
+        changes (dict): dictionary with changes
+        col (str): name of column to implement changes on
+
+    Returns:
+        precipitation (pd.DataFrame): DataFrame with implemented changes
+    """
+    precipitation[col] = precipitation[col].map(changes).fillna(precipitation[col])
+
+    return precipitation
+
+
+def save_df(df: pd.DataFrame, name: str):
+    """
+    Function for saving DataFrame to .csv file in data/ directory with given name
+
+        Parameters:
+            df (pd.DataFrame): DataFrame to be saved
+            name (str): Name of file
+
+        Returns:
+            None
+    """
+    df.to_csv("data/" + name)
+
+
+def download_precip_data() -> pd.DataFrame:
+    """Function for downloading precipitation data
+
+    Returns:
+        precipitation_data_wc (pd.DataFrame): Downloaded precipitation data from 33 years
+    """
+    print("Beginning downloading precipitation data")
+    columns = get_colnames()
+
+    urls = get_urls()
+
+    dfs = []
+
+    for url in urls:
+        try:
+            precip = pd.read_csv(
+                url,
+                header=None,
+                names=columns,
+                encoding="cp1250",
+                compression={"method": "zip"},
+            )
+        except BadZipFile:
+            print(f"{url} is corrupted, going to the next file")
+            continue
+
+        dfs.append(precip)
 
     precipitation_data = pd.concat(dfs)
 
@@ -89,5 +133,9 @@ def download_precip_data():
     )
 
     save_df(precipitation_data_wc, "precipitation_data.csv")
+
+    print(
+        "Precipitation data downloaded & saved in data/ directory under 'precipitation_data.csv' name"
+    )
 
     return precipitation_data_wc
