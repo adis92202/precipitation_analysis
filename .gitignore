@@ -1,4 +1,7 @@
 data/*.csv
+data/*.zip
+data/O*.txt
+data/o*.txt
 data/stations.*
 src/__pycache__/__init__.cpython-311.pyc
 src/download/__pycache__/__init__.cpython-311.pyc
