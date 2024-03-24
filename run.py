@@ -1,5 +1,5 @@
-from src.download.download_stations import download_stations_data
-from src.download.download_precipitations import download_precip_data
+from src.data_ingestion.download_stations import download_stations_data
+from src.data_ingestion.download_precipitations import download_precip_data
 
 
 def main():
