@@ -36,10 +36,10 @@ def visualize_stations(voi_polygon: gpd.GeoSeries, voi_gdf: gpd.GeoDataFrame, vo
     ax = world.plot(figsize=(10, 10), color='lightgrey')
 
     voi_polygon.plot(ax=ax, color='none', edgecolor='blue', label=voi) 
-    voi_gdf.plot(ax=ax, color='red', markersize=50) 
+    voi_gdf.plot(ax=ax, color='red', markersize=25) 
 
     for x, y, label in zip(voi_gdf.geometry.x, voi_gdf.geometry.y, voi_gdf['name']):
-        ax.text(x, y, label, fontsize=8, ha='left') 
+        ax.text(x, y, label, fontsize=7, ha='left') 
 
     ax.set_xlim([min(voi_gdf.geometry.x) - 0.75, max(voi_gdf.geometry.x) + 0.75])
     ax.set_ylim([min(voi_gdf.geometry.y) - 0.75, max(voi_gdf.geometry.y) + 0.75])
