@@ -41,14 +41,14 @@ def get_urls() -> list[str]:
     """
     base_url = "https://danepubliczne.imgw.pl/data/dane_pomiarowo_obserwacyjne/dane_meteorologiczne/dobowe/opad/"
     parent_dirs = ["1991_1995/", "1996_2000/"] + [
-        str(i) + "/" for i in range(2001, 2024)
+        str(i) + "/" for i in range(2001, 2023)
     ]
     child_dirs = [
         [str(i) for i in range(1991, 1996)],
         [str(i) for i in range(1996, 2001)],
     ] + [
         [str(i) + "_" + str(j).zfill(2) for j in range(1, 13)]
-        for i in range(2001, 2024)
+        for i in range(2001, 2023)
     ]
     ending = "_o.zip"
 
