@@ -10,8 +10,8 @@ def main():
     elif not os.path.exists('data/precipitation_data.csv'):  
         download_precip_data()
     else:
-        print("The file precipitation_data.csv and stations.shp already exist in data/ directory.")
-        gdf = gpd.read_file('data/stations.shp')
+        print("The files precipitation_data.csv and stations.shp already exist in data/ directory.")
+        gdf = gpd.read_file('data/stations.shp', encoding='cp1250')
         voi = "Lubusz"
         visualize(gdf,voi)
         
