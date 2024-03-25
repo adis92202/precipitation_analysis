@@ -1,5 +1,18 @@
 # Precipitation analysis using SPI (Standardized Precipitation Index)
 
+## Contents
+This repository has following structure:
+- data/ - empty folder in which analysed data will appear when running analysis
+- documentation/ - additional comments on code
+- notebooks/ - folder with development notebooks; to be hidden after final deployment
+- results/ - folder containing all of the results of the analysis
+- src/ - source code for project, further divided into thematical groups
+- .gitignore - paths to be ignored by github
+- README.md - this file
+- run.py - main script to run analysis (see **Usage** section)
+- spi_env.yml - file with environment snapshot (see **Environment** section) - in future to be replaced by conda-lock file
+
+
 ## GitHub
 To clone this repo follow these steps:
 1. Go into your preferred location
@@ -20,6 +33,12 @@ SCRUM Board: https://student-team-xbkle2tpwdsd.atlassian.net/jira/software/proje
 
 ## Usage
 To run this project do the steps below:
-1. Open IDE like Visual Studio Code
-2. Activate environment via typing `conda activate command` in the terminal
-3. Run `some command with py script` to prepare the analysis
+1. Open terminal in the location of your repository
+2. Activate environment by `conda activate spi_env`
+3. Type `python run.py` to start all of the fun!
+4. The data will appear in 'data' folder and other results in 'results' folder
+
+### Authors:
+- [Anna Kaniowska](https://github.com/ania15)
+- [Adam Piwowarski](https://github.com/adis92202)
+- [Ewa Szewczyk](https://github.com/drateffka)
