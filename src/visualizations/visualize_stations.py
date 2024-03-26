@@ -2,13 +2,25 @@ import geopandas as gpd
 import matplotlib.pyplot as plt
 from typing import Tuple
 
+def get_voivodeship_names() -> list:
+    """Function to fetch and return a list of voivodeship names with spaces and dashes removed.
+
+    Returns:
+        list: A list containing unique names of voivodeships.
+    """
+    geojson = gpd.read_file('https://simplemaps.com/static/svg/country/pl/admin1/pl.json')
+    geojson['name'] = geojson['name'].apply(lambda x: x.replace(' ', '')).apply(lambda x: x.replace('-', ''))
+    voivodeships = geojson['name'].unique().tolist()
+    return voivodeships
+
 def get_voivodeship_borders() -> gpd.GeoDataFrame:
-    """Function to fetch and return voivodeship borders data as GeoDataFrame from a specified URL.
+    """Function to fetch and return voivodeship borders data as GeoDataFrame from a specified URL with spaces and dashes removed from voivodeship names.
     
     Returns:
         gpd.GeoDataFrame: GeoDataFrame containing voivodeship borders
     """
     geojson = gpd.read_file('https://simplemaps.com/static/svg/country/pl/admin1/pl.json')
+    geojson['name'] = geojson['name'].apply(lambda x: x.replace(' ', '')).apply(lambda x: x.replace('-', ''))
     return geojson
 
 def clip_to_voivodeship(gdf: gpd.GeoDataFrame, geojson: gpd.GeoDataFrame, voi: str) -> Tuple[gpd.GeoSeries, gpd.GeoDataFrame]:

@@ -2,15 +2,9 @@ import argparse
 from src.data_ingestion.download_stations import download_stations_data
 from src.data_ingestion.download_precipitations import download_precip_data
 from src.visualizations.visualize_stations import visualize
+from src.visualizations.visualize_stations import get_voivodeship_names
 import os
 import geopandas as gpd
-
-AVAILABLE_VOIVODESHIPS = [
-    "Silesian", "Lesser Poland", "Subcarpathian", "Lower Silesian", "Opole",
-    "Podlachian", "Warmian-Masurian", "Lubusz", "West Pomeranian", "Lublin",
-    "Pomeranian", "Masovian", "Łódź", "Kuyavian-Pomeranian", "Greater Poland",
-    "Świętokrzyskie"
-]
 
 def main(voi):
     if not os.path.exists('data/stations.shp'):
@@ -28,7 +22,8 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     voivodeship = args.voivodeship
-    if voivodeship not in AVAILABLE_VOIVODESHIPS:
-        print("Wrong voivodeship. You can choose among:", ", ".join(AVAILABLE_VOIVODESHIPS))
+    available_voivodeships = get_voivodeship_names()
+    if voivodeship not in available_voivodeships:
+        print("Wrong voivodeship. You can choose among:", ", ".join(available_voivodeships))
     else:
         main(voivodeship)

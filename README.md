@@ -41,20 +41,20 @@ To run this project do the steps below:
 
     Here is the list of available voivodeships you can choose from:
     - Silesian
-    - Lesser Poland
+    - LesserPoland
     - Subcarpathian
-    - Lower Silesian
+    - LowerSilesian
     - Opole
     - Podlachian
-    - Warmian-Masurian
+    - WarmianMasurian
     - Lubusz
-    - West Pomeranian
+    - WestPomeranian
     - Lublin
     - Pomeranian
     - Masovian
     - Łódź
-    - Kuyavian-Pomeranian
-    - Greater Poland
+    - KuyavianPomeranian
+    - GreaterPoland
     - Świętokrzyskie
 4. The data will appear in 'data' folder and other results in 'results' folder
 
