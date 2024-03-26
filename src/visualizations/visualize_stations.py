@@ -3,14 +3,18 @@ import matplotlib.pyplot as plt
 from typing import Tuple
 
 def get_voivodeship_borders() -> gpd.GeoDataFrame:
-    """Function to download and return voivodeship borders data as GeoDataFrame"""
+    """Function to fetch and return voivodeship borders data as GeoDataFrame from a specified URL.
+    
+    Returns:
+        gpd.GeoDataFrame: GeoDataFrame containing voivodeship borders
+    """
     geojson = gpd.read_file('https://simplemaps.com/static/svg/country/pl/admin1/pl.json')
     return geojson
 
 def clip_to_voivodeship(gdf: gpd.GeoDataFrame, geojson: gpd.GeoDataFrame, voi: str) -> Tuple[gpd.GeoSeries, gpd.GeoDataFrame]:
     """Function to clip GeoDataFrame to specific voivodeship borders
     
-    Args:
+    Parameters:
         gdf (gpd.GeoDataFrame): GeoDataFrame containing stations data
         geojson (gpd.GeoDataFrame): GeoDataFrame containing voivodeship borders
         voi (str): Name of the voivodeship to clip the data to
@@ -25,10 +29,13 @@ def clip_to_voivodeship(gdf: gpd.GeoDataFrame, geojson: gpd.GeoDataFrame, voi: s
 def visualize_stations(voi_polygon: gpd.GeoSeries, voi_gdf: gpd.GeoDataFrame, voi: str) -> None:
     """Function to visualize stations within specific voivodeship
     
-    Args:
+    Parameters:
         voi_polygon (gpd.GeoSeries): Polygon representing voivodeship borders
         voi_gdf (gpd.GeoDataFrame): GeoDataFrame containing stations data within the voivodeship
         voi (str): Name of the voivodeship
+
+    Returns:
+            None
     """
 
     world = gpd.read_file(gpd.datasets.get_path('naturalearth_lowres')) 
@@ -51,9 +58,12 @@ def visualize_stations(voi_polygon: gpd.GeoSeries, voi_gdf: gpd.GeoDataFrame, vo
 def visualize(gdf: gpd.GeoDataFrame, voi: str) -> None:
     """Function to execute the visualization pipeline
     
-    Args:
+    Parameters:
         gdf (gpd.GeoDataFrame): GeoDataFrame containing stations data
         voi (str): Name of the voivodeship
+
+    Returns:
+            None
     """
     geojson = get_voivodeship_borders()
     voi_polygon, voi_gdf = clip_to_voivodeship(gdf, geojson, voi)
