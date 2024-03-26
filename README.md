@@ -35,7 +35,27 @@ SCRUM Board: https://student-team-xbkle2tpwdsd.atlassian.net/jira/software/proje
 To run this project do the steps below:
 1. Open terminal in the location of your repository
 2. Activate environment by `conda activate spi_env`
-3. Type `python run.py` to start all of the fun!
+3. Type `python run.py` to start all of the fun! If you don't provide an --voivodeship argument, the program will analyze the precipitation data for the Lubusz voivodeship by default. If you want to analyze precipitation data for another voivodeship, provide its name as an argument. Here is an example:
+
+    `python run.py --voivodeship Masovian`
+
+    Here is the list of available voivodeships you can choose from:
+    - Silesian
+    - Lesser Poland
+    - Subcarpathian
+    - Lower Silesian
+    - Opole
+    - Podlachian
+    - Warmian-Masurian
+    - Lubusz
+    - West Pomeranian
+    - Lublin
+    - Pomeranian
+    - Masovian
+    - Łódź
+    - Kuyavian-Pomeranian
+    - Greater Poland
+    - Świętokrzyskie
 4. The data will appear in 'data' folder and other results in 'results' folder
 
 ### Authors:
