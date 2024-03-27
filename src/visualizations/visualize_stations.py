@@ -65,6 +65,7 @@ def visualize_stations(voi_polygon: gpd.GeoSeries, voi_gdf: gpd.GeoDataFrame, vo
     plt.title(f'Stations, Voivodeship - {voi}')
     plt.xlabel('Longitude')
     plt.ylabel('Latitude')
+    plt.savefig(f'results/{voi}_stations.png')
     plt.show()
 
 def visualize(gdf: gpd.GeoDataFrame, voi: str) -> None:
