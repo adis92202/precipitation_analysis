@@ -76,7 +76,7 @@ def save_gdf(gdf: gpd.GeoDataFrame, name: str, iname: str) -> None:
         Returns:
             None
     """
-    gdf.to_file("data/" + name, index=iname)
+    gdf.to_file("data/" + name, index=iname, encoding="cp1250")
 
 
 def download_stations_data() -> gpd.GeoDataFrame:

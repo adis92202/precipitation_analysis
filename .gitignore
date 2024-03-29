@@ -8,6 +8,8 @@ Byte-compiled / optimized / DLL files
 data/*
 !data/.gitkeep
 
+results/*
+!results/.gitkeep
 
 # C extensions
 *.so
