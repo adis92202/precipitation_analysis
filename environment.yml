@@ -1,0 +1,9 @@
+name: spi_env
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - pandas
+  - geopandas
+  - matplotlib
+  - seaborn
