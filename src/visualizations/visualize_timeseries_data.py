@@ -3,12 +3,13 @@ import geopandas as gpd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from .visualize_stations import get_voivodeship_borders, clip_to_voivodeship
+from ..data_ingestion.download_precipitations import save_df
 
 
 def clip_precip_to_voi(
     precip: pd.DataFrame, stations_gdf: gpd.GeoDataFrame, voi: str
-) -> gpd.GeoDataFrame:
-    """Function to clip precipitation data to an only one voivodeship
+) -> pd.DataFrame:
+    """Function to clip precipitation data to an only one voivodeship. It additionally saves the necessary data to .csv.
 
     Args:
         precip (pd.DataFrame): Data containing precipitation over years
@@ -16,23 +17,43 @@ def clip_precip_to_voi(
         voi (str): Voivodeship name
 
     Returns:
-        gpd.GeoDataFrame: GeoDataFrame containing precipitation data merged with stations' detail from one voivodeship
+        pd.DataFrame: DataFrame containing precipitation data merged with stations' detail from one voivodeship
     """
     vois = get_voivodeship_borders()
     _, voi_gdf = clip_to_voivodeship(stations_gdf, vois, voi)
-    return precip.merge(voi_gdf, how="inner", left_on="station_code", right_on="ID")
+    merged_df = precip.merge(
+        voi_gdf, how="inner", left_on="station_code", right_on="ID"
+    )
+    merged_df = merged_df[
+        [
+            "station_code",
+            "station_name",
+            "year",
+            "month",
+            "day",
+            "24h_precipitation_mm",
+            "precip_type",
+            "snow_cover_cm",
+            "river",
+            "lat",
+            "lon",
+            "altitude",
+        ]
+    ]
+    save_df(merged_df, f"{voi}_data.csv")
+    return merged_df
 
 
-def prepare_visualization_dataset(merged_gdf: gpd.GeoDataFrame) -> pd.DataFrame:
+def prepare_visualization_dataset(merged_df: pd.DataFrame) -> pd.DataFrame:
     """Function counting number of available months per station per each year
 
     Args:
-        merged_gdf (gpd.GeoDataFrame): GeoDataFrame containing precipitation data merged with stations' detail from one voivodeship
+        merged_df (pd.DataFrame): DataFrame containing precipitation data merged with stations' details from one voivodeship
 
     Returns:
         pd.DataFrame: Pandas DataFrame with columns containing: years, station name and number of available months (0-12)
     """
-    pivot_table = merged_gdf.pivot_table(
+    pivot_table = merged_df.pivot_table(
         index="year", columns="station_name", aggfunc="count"
     )["24h_precipitation_mm"].fillna(0)
 
