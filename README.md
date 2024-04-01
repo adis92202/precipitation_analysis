@@ -28,8 +28,8 @@ SCRUM Board: https://student-team-xbkle2tpwdsd.atlassian.net/jira/software/proje
 2. Go into this location and copy the absolute path
 3. Open the Anaconda Prompt and use `cd <copied_absolute_path>` command
 4. Use `conda-lock install --name spi_env conda-lock.yml` command in the Anaconda Prompt
-5. Still in the Anaconda Prompt, activate this environment via `conda activate spi_env`
-6. Verify that the new environment was installed correctly using `conda env list` - you should see `spi_env` on the list
+5. Verify that the new environment was installed correctly using `conda env list` - you should see `spi_env` on the list
+6. Still in the Anaconda Prompt, activate this environment via `conda activate spi_env`
 7. Now, you can close Anaconda Prompt window
 
 ## Usage
