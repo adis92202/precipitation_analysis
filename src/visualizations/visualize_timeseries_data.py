@@ -9,7 +9,8 @@ from ..data_ingestion.download_precipitations import save_df
 def clip_precip_to_voi(
     precip: pd.DataFrame, stations_gdf: gpd.GeoDataFrame, voi: str
 ) -> pd.DataFrame:
-    """Function to clip precipitation data to an only one voivodeship. It additionally saves the necessary data to .csv.
+    """Function to clip precipitation data to an only one voivodeship. It additionally
+       saves the necessary data to .csv.
 
     Args:
         precip (pd.DataFrame): Data containing precipitation over years
@@ -17,7 +18,8 @@ def clip_precip_to_voi(
         voi (str): Voivodeship name
 
     Returns:
-        pd.DataFrame: DataFrame containing precipitation data merged with stations' detail from one voivodeship
+        pd.DataFrame: DataFrame containing precipitation data merged with stations'
+                      detail from one voivodeship
     """
     vois = get_voivodeship_borders()
     _, voi_gdf = clip_to_voivodeship(stations_gdf, vois, voi)
@@ -48,10 +50,12 @@ def prepare_visualization_dataset(merged_df: pd.DataFrame) -> pd.DataFrame:
     """Function counting number of available months per station per each year
 
     Args:
-        merged_df (pd.DataFrame): DataFrame containing precipitation data merged with stations' details from one voivodeship
+        merged_df (pd.DataFrame): DataFrame containing precipitation data merged
+                                  with stations' details from one voivodeship
 
     Returns:
-        pd.DataFrame: Pandas DataFrame with columns containing: years, station name and number of available months (0-12)
+        pd.DataFrame: Pandas DataFrame with columns containing: years, station
+                      name and number of available months (0-12)
     """
     pivot_table = merged_df.pivot_table(
         index="year", columns="station_name", aggfunc="count"
@@ -64,7 +68,7 @@ def prepare_visualization_dataset(merged_df: pd.DataFrame) -> pd.DataFrame:
     return pivot_table_normalized.melt(id_vars=["year"], value_name="no_months")
 
 
-def visualize_available_data(
+def visualize_available_voi_data(
     precip: pd.DataFrame, stations_gdf: gpd.GeoDataFrame, voi: str
 ) -> None:
     """Visualization of data availability over time for the chosen voivodeship
@@ -93,6 +97,7 @@ def visualize_available_data(
         xlabel="Year",
         ylabel="Station name",
     )
+    ax.set_yticks(ax.get_yticks())
     ax.set_yticklabels(ax.get_yticklabels(), fontsize=7)
     ax.legend(
         loc="center right",
@@ -101,5 +106,8 @@ def visualize_available_data(
         alignment="center",
     )
 
+    plt.get_current_fig_manager().set_window_title(
+        f"Data time range for stations in {voi} voivodeship"
+    )
     plt.savefig(f"results/{voi}_data_availability.png")
     plt.show()

@@ -7,10 +7,11 @@ from ..visualizations.visualize_stations import (
 from ..data_ingestion.download_precipitations import save_df
 
 
-def missing_stations(
+def get_and_save_voi_missing_stations(
     precip: pd.DataFrame, stations_gdf: gpd.GeoDataFrame, voi: str
 ) -> None:
-    """Function to find and create list of missing stations in the chosen voivodeship. The list is saved to the appropriate file.
+    """Function to find and create list of missing stations in the chosen voivodeship.
+       The list is saved to the appropriate file.
 
     Args:
         precip (pd.DataFrame): Data containing precipitation over years
