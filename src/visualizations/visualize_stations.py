@@ -96,7 +96,9 @@ def visualize_stations(
     plt.ylabel("Latitude")
     plt.get_current_fig_manager().set_window_title(f"Stations, Voivodeship - {voi}")
     plt.savefig(f"results/{voi}_stations.png")
-    plt.show()
+    print(
+        f"Figure with visualization of stations within specific voivodeship saved in results/{voi}_stations.png"
+    )
 
 
 def visualize_voi_stations(gdf: gpd.GeoDataFrame, voi: str) -> None:

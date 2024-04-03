@@ -110,4 +110,6 @@ def visualize_available_voi_data(
         f"Data time range for stations in {voi} voivodeship"
     )
     plt.savefig(f"results/{voi}_data_availability.png")
-    plt.show()
+    print(
+        f"Figure with visualization of data availability over time for the chosen voivodeship saved in results/{voi}_data_availability.png"
+    )
