@@ -2,76 +2,109 @@ import geopandas as gpd
 import matplotlib.pyplot as plt
 from typing import Tuple
 
+# import fsspec
+
+
 def get_voivodeship_names() -> list:
-    """Function to fetch and return a list of voivodeship names with spaces and dashes removed.
+    """Function to fetch and return a list of voivodeship names with spaces and
+       dashes removed.
 
     Returns:
         list: A list containing unique names of voivodeships.
     """
-    geojson = gpd.read_file('https://simplemaps.com/static/svg/country/pl/admin1/pl.json')
-    geojson['name'] = geojson['name'].apply(lambda x: x.replace(' ', '')).apply(lambda x: x.replace('-', ''))
-    voivodeships = geojson['name'].unique().tolist()
+    geojson = gpd.read_file(
+        "https://simplemaps.com/static/svg/country/pl/admin1/pl.json"
+    )
+    geojson["name"] = (
+        geojson["name"]
+        .apply(lambda x: x.replace(" ", ""))
+        .apply(lambda x: x.replace("-", ""))
+    )
+    voivodeships = geojson["name"].unique().tolist()
     return voivodeships
 
+
 def get_voivodeship_borders() -> gpd.GeoDataFrame:
-    """Function to fetch and return voivodeship borders data as GeoDataFrame from a specified URL with spaces and dashes removed from voivodeship names.
-    
+    """Function to fetch and return voivodeship borders data as GeoDataFrame from
+       a specified URL with spaces and dashes removed from voivodeship names.
+
     Returns:
         gpd.GeoDataFrame: GeoDataFrame containing voivodeship borders
     """
-    geojson = gpd.read_file('https://simplemaps.com/static/svg/country/pl/admin1/pl.json')
-    geojson['name'] = geojson['name'].apply(lambda x: x.replace(' ', '')).apply(lambda x: x.replace('-', ''))
+    geojson = gpd.read_file(
+        "https://simplemaps.com/static/svg/country/pl/admin1/pl.json"
+    )
+    geojson["name"] = (
+        geojson["name"]
+        .apply(lambda x: x.replace(" ", ""))
+        .apply(lambda x: x.replace("-", ""))
+    )
     return geojson
 
-def clip_to_voivodeship(gdf: gpd.GeoDataFrame, geojson: gpd.GeoDataFrame, voi: str) -> Tuple[gpd.GeoSeries, gpd.GeoDataFrame]:
+
+def clip_to_voivodeship(
+    gdf: gpd.GeoDataFrame, geojson: gpd.GeoDataFrame, voi: str
+) -> Tuple[gpd.GeoSeries, gpd.GeoDataFrame]:
     """Function to clip GeoDataFrame to specific voivodeship borders
-    
-    Parameters:
+
+    Args:
         gdf (gpd.GeoDataFrame): GeoDataFrame containing stations data
         geojson (gpd.GeoDataFrame): GeoDataFrame containing voivodeship borders
         voi (str): Name of the voivodeship to clip the data to
-        
+
     Returns:
-        Tuple[gpd.GeoSeries, gpd.GeoDataFrame]: Tuple containing voivodeship polygon and clipped GeoDataFrame
+        Tuple[gpd.GeoSeries, gpd.GeoDataFrame]: Tuple containing voivodeship polygon
+                                                and clipped GeoDataFrame
     """
-    voi_polygon = geojson[geojson['name'] == voi]['geometry']
+    voi_polygon = geojson[geojson["name"] == voi]["geometry"]
     voi_gdf = gdf[gdf.within(voi_polygon.geometry.iloc[0])]
     return voi_polygon, voi_gdf
 
-def visualize_stations(voi_polygon: gpd.GeoSeries, voi_gdf: gpd.GeoDataFrame, voi: str) -> None:
+
+def visualize_stations(
+    voi_polygon: gpd.GeoSeries, voi_gdf: gpd.GeoDataFrame, voi: str
+) -> None:
     """Function to visualize stations within specific voivodeship
-    
-    Parameters:
+
+    Args:
         voi_polygon (gpd.GeoSeries): Polygon representing voivodeship borders
-        voi_gdf (gpd.GeoDataFrame): GeoDataFrame containing stations data within the voivodeship
+        voi_gdf (gpd.GeoDataFrame): GeoDataFrame containing stations data within
+                                    the voivodeship
         voi (str): Name of the voivodeship
 
     Returns:
             None
     """
+    world = gpd.read_file("data/ne_110m_admin_0_countries.zip")
+    # world = gpd.read_file(
+    #     "https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/cultural/ne_110m_admin_0_countries.zip"
+    # )
 
-    world = gpd.read_file(gpd.datasets.get_path('naturalearth_lowres')) 
-    ax = world.plot(figsize=(10, 10), color='lightgrey')
+    ax = world.plot(figsize=(10, 10), color="lightgrey")
 
-    voi_polygon.plot(ax=ax, color='none', edgecolor='blue', label=voi) 
-    voi_gdf.plot(ax=ax, color='red', markersize=25) 
+    voi_polygon.plot(ax=ax, color="none", edgecolor="blue", label=voi)
+    voi_gdf.plot(ax=ax, color="red", markersize=25)
 
-    for x, y, label in zip(voi_gdf.geometry.x, voi_gdf.geometry.y, voi_gdf['name']):
-        ax.text(x, y, label, fontsize=7, ha='left') 
+    for x, y, label in zip(voi_gdf.geometry.x, voi_gdf.geometry.y, voi_gdf["name"]):
+        ax.text(x, y, label, fontsize=7, ha="left")
 
     ax.set_xlim([min(voi_gdf.geometry.x) - 0.75, max(voi_gdf.geometry.x) + 0.75])
     ax.set_ylim([min(voi_gdf.geometry.y) - 0.75, max(voi_gdf.geometry.y) + 0.75])
 
-    plt.title(f'Stations, Voivodeship - {voi}')
-    plt.xlabel('Longitude')
-    plt.ylabel('Latitude')
-    plt.savefig(f'results/{voi}_stations.png')
-    plt.show()
+    plt.title(f"Stations, Voivodeship - {voi}")
+    plt.xlabel("Longitude")
+    plt.ylabel("Latitude")
+    plt.get_current_fig_manager().set_window_title(f"Stations, Voivodeship - {voi}")
+    plt.savefig(f"results/{voi}_stations.png")
+    print(
+        f"Figure with visualization of stations within specific voivodeship saved in results/{voi}_stations.png"
+    )
 
-def visualize(gdf: gpd.GeoDataFrame, voi: str) -> None:
-    """Function to execute the visualization pipeline
-    
-    Parameters:
+
+def visualize_voi_stations(gdf: gpd.GeoDataFrame, voi: str) -> None:
+    """Function to execute the "visualize stations for a chosen voivodeship" pipeline
+
+    Args:
         gdf (gpd.GeoDataFrame): GeoDataFrame containing stations data
         voi (str): Name of the voivodeship
 

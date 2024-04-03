@@ -10,7 +10,8 @@ This repository has following structure:
 - .gitignore - paths to be ignored by github
 - README.md - this file
 - run.py - main script to run analysis (see **Usage** section)
-- spi_env.yml - file with environment snapshot (see **Environment** section) - in future to be replaced by conda-lock file
+- environment.yml - file with environment dependencies
+- conda-lock.yml - file with locked environment snapshot (see **Environment** section)
 
 
 ## GitHub
@@ -26,9 +27,9 @@ SCRUM Board: https://student-team-xbkle2tpwdsd.atlassian.net/jira/software/proje
 1. Clone this repository to your preferred location as mentioned in the **GitHub** section
 2. Go into this location and copy the absolute path
 3. Open the Anaconda Prompt and use `cd <copied_absolute_path>` command
-4. Use `conda env create -f spi_env.yml` command in the Anaconda Prompt
-5. Still in the Anaconda Prompt, activate this environment via `conda activate spi_env`
-6. Verify that the new environment was installed correctly using `conda env list` - you should see `spi_env` on the list
+4. Use `conda-lock install --name spi_env conda-lock.yml` command in the Anaconda Prompt
+5. Verify that the new environment was installed correctly using `conda env list` - you should see `spi_env` on the list
+6. Still in the Anaconda Prompt, activate this environment via `conda activate spi_env`
 7. Now, you can close Anaconda Prompt window
 
 ## Usage
