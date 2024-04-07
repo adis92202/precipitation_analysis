@@ -7,7 +7,7 @@ def move_right(row: pd.Series) -> pd.Series:
     """
     In some records columns with lat and lon are shifted, this function solves this problem
 
-        Parameters:
+        Args:
             row (pd.Series): Row to be fixed
 
         Returns:
@@ -25,7 +25,7 @@ def dms_to_dd(coord: str) -> float:
     """
     Function to convert dms to dd
 
-        Parameters:
+        Args:
             coord (str): Coordinates in dms (degrees minutes seconds) format
 
         Returns:
@@ -52,7 +52,7 @@ def create_gdf(df: pd.DataFrame) -> gpd.GeoDataFrame:
     """
     Function for creating GeoDataFrame from pandas DataFrame
 
-        Parameters:
+        Args:
             df (pd.DataFrame): DataFrame with lat and lon columns
 
         Returns:
@@ -68,7 +68,7 @@ def save_gdf(gdf: gpd.GeoDataFrame, name: str, iname: str) -> None:
     """
     Function for saving GeoDataFrame to .shp file in data/ directory with given name and index
 
-        Parameters:
+        Args:
             gdf (gpd.GeoDataFrame): GeoDataFrame to be saved
             name (str): Name of file
             iname (str): Column name of index

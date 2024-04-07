@@ -69,7 +69,7 @@ def implement_changes(
 ) -> pd.DataFrame:
     """Function for implementing changes from 'Opis.txt' file
 
-    Parameters:
+    Args:
         precipitation (pd.DataFrame): data
         changes (dict): dictionary with changes
         col (str): name of column to implement changes on
@@ -86,7 +86,7 @@ def save_df(df: pd.DataFrame, name: str):
     """
     Function for saving DataFrame to .csv file in data/ directory with given name
 
-        Parameters:
+        Args:
             df (pd.DataFrame): DataFrame to be saved
             name (str): Name of file
 
