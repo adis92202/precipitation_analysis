@@ -19,7 +19,8 @@ def get_data() -> Tuple[pd.DataFrame, gpd.GeoDataFrame]:
         download_precip_data()
     else:
         print(
-            "The files precipitation_data.csv and stations.shp already exist in data/ directory."
+            "The files precipitation_data.csv and stations.shp already exist in data/ directory.",
+            "Reading the data in",
         )
 
     all_precip = pd.read_csv(
@@ -29,4 +30,5 @@ def get_data() -> Tuple[pd.DataFrame, gpd.GeoDataFrame]:
     )
     stations_gdf = gpd.read_file("data/stations.shp", encoding="cp1250")
 
+    print("Reading the data ended")
     return all_precip, stations_gdf

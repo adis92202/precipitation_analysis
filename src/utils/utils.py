@@ -14,7 +14,7 @@ def save_df(df: pd.DataFrame, name: str, message=None) -> None:
         Returns:
             None
     """
-    df.to_csv("data/" + name)
+    df.to_csv("data/" + name, encoding="utf-8")
     if message is None:
         print(f"{name} saved in data/")
     else:
@@ -53,3 +53,5 @@ def save_gdf(gdf: gpd.GeoDataFrame, name: str, iname: str, message=None) -> None
 
     if message is None:
         print(f"Saved gdf to location data/{name}")
+    else:
+        print(message)

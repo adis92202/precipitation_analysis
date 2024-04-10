@@ -4,8 +4,7 @@ from typing import Tuple
 
 
 def clip_precip_to_voi(precip: pd.DataFrame, voi_gdf: gpd.GeoDataFrame) -> pd.DataFrame:
-    """Function to clip precipitation data to only one voivodeship. It additionally
-       saves the necessary data to .csv.
+    """Function to clip precipitation data to only one voivodeship
 
     Args:
         precip (pd.DataFrame): Data containing precipitation over years
@@ -77,7 +76,7 @@ def get_voivodeship_borders() -> gpd.GeoDataFrame:
     return geojson
 
 
-def clip_data(
+def clip_data_to_voi(
     precip: pd.DataFrame, stations: gpd.GeoDataFrame, voi: str
 ) -> list[gpd.GeoDataFrame, gpd.GeoDataFrame, gpd.GeoDataFrame]:
     """Pipeline for clipping all the data to voivodeships
@@ -91,8 +90,11 @@ def clip_data(
         list[gpd.GeoDataFrame, gpd.GeoDataFrame, gpd.GeoDataFrame]: Polygon of voivodeship, precipitation data clipped
           to voivodeship & stations clipped to voivodeship
     """
+    print(f"Clipping pecipitation and stations data to {voi} voivodeship...")
     geojson = get_voivodeship_borders()
     voi_polygon, voi_stations_gdf = clip_to_voivodeship(stations, geojson, voi)
     voi_precip_gdf = clip_precip_to_voi(precip, voi_stations_gdf)
+
+    print("Clipping ended")
 
     return voi_polygon, voi_precip_gdf, voi_stations_gdf

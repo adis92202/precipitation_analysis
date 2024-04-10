@@ -6,7 +6,8 @@ from src.visualizations.visualize_stations import (
 )
 from src.visualizations.visualize_timeseries_data import visualize_available_voi_data
 from src.preprocessing.preprocessing_stations import get_and_save_voi_missing_stations
-from src.preprocessing.clipping import clip_data
+from src.preprocessing.clipping import clip_data_to_voi
+from src.preprocessing.preprocessing_precip import preprocess_precipitation
 
 
 def main(voi):
@@ -14,8 +15,9 @@ def main(voi):
     all_precip, stations = get_data()
 
     # Preprocessing
-    voi_polygon, voi_precip, voi_stations = clip_data(all_precip, stations, voi)
+    voi_polygon, voi_precip, voi_stations = clip_data_to_voi(all_precip, stations, voi)
     get_and_save_voi_missing_stations(all_precip, stations, voi)
+    preprocessed_df = preprocess_precipitation(voi_precip, voi)
     # After ALL preprocessing is done - save the precip file (not earlier!)
 
     # Visualizations
