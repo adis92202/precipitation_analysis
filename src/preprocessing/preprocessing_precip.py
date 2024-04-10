@@ -32,7 +32,11 @@ def cleaning_data(df: pd.DataFrame, voi: str) -> pd.DataFrame:
 
 
 def filling_data(df: pd.DataFrame) -> pd.DataFrame:
-    """Function for filling missing values from cleaned data
+    """Function for filling missing values from cleaned data.
+    Filled columns are:
+        precip_type (with value 'not/available')
+        24h_precipitation_mm (with year-monthly mean for the voivodeship)
+        SMDB_status (with 'Normal')
 
     Args:
         df (pd.DataFrame): Cleaned data
@@ -72,7 +76,7 @@ def filling_data(df: pd.DataFrame) -> pd.DataFrame:
 
 def preprocess_precipitation(df: pd.DataFrame, voi: str) -> pd.DataFrame:
     """This is a pipeline function for invoking all preprocessing for the precipitation data
-    (except of clipping the data to voivodeship - this is performed separately and eariler)
+    (except of clipping the data to voivodeship - this is performed separately and earlier)
 
     Args:
         df (pd.DataFrame): Precipitation data for one voivodeship

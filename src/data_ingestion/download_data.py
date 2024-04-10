@@ -12,16 +12,17 @@ def get_data() -> Tuple[pd.DataFrame, gpd.GeoDataFrame]:
     Returns:
         Tuple[pd.DataFrame, gpd.GeoDataFrame]: All precipitation data & stations data
     """
-    if (not os.path.exists("data/stations.shp")) or (
-        not os.path.exists("data/precipitation_data.csv")
-    ):
+    print("Reading the data...")
+
+    if not os.path.exists("data/stations.shp"):
         download_stations_data()
+    else:
+        print("precipitation_data.csv already exists in data/ directory")
+
+    if not os.path.exists("data/precipitation_data.csv"):
         download_precip_data()
     else:
-        print(
-            "The files precipitation_data.csv and stations.shp already exist in data/ directory.",
-            "Reading the data in",
-        )
+        print("stations.shp already exists in data/ directory.")
 
     all_precip = pd.read_csv(
         "data/precipitation_data.csv",

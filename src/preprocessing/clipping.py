@@ -90,7 +90,7 @@ def clip_data_to_voi(
         list[gpd.GeoDataFrame, gpd.GeoDataFrame, gpd.GeoDataFrame]: Polygon of voivodeship, precipitation data clipped
           to voivodeship & stations clipped to voivodeship
     """
-    print(f"Clipping pecipitation and stations data to {voi} voivodeship...")
+    print(f"Clipping precipitation and stations data to {voi} voivodeship...")
     geojson = get_voivodeship_borders()
     voi_polygon, voi_stations_gdf = clip_to_voivodeship(stations, geojson, voi)
     voi_precip_gdf = clip_precip_to_voi(precip, voi_stations_gdf)
