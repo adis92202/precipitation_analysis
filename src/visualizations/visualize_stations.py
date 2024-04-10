@@ -1,8 +1,5 @@
 import geopandas as gpd
 import matplotlib.pyplot as plt
-from typing import Tuple
-
-# import fsspec
 
 
 def get_voivodeship_names() -> list:
@@ -22,43 +19,6 @@ def get_voivodeship_names() -> list:
     )
     voivodeships = geojson["name"].unique().tolist()
     return voivodeships
-
-
-def get_voivodeship_borders() -> gpd.GeoDataFrame:
-    """Function to fetch and return voivodeship borders data as GeoDataFrame from
-       a specified URL with spaces and dashes removed from voivodeship names.
-
-    Returns:
-        gpd.GeoDataFrame: GeoDataFrame containing voivodeship borders
-    """
-    geojson = gpd.read_file(
-        "https://simplemaps.com/static/svg/country/pl/admin1/pl.json"
-    )
-    geojson["name"] = (
-        geojson["name"]
-        .apply(lambda x: x.replace(" ", ""))
-        .apply(lambda x: x.replace("-", ""))
-    )
-    return geojson
-
-
-def clip_to_voivodeship(
-    gdf: gpd.GeoDataFrame, geojson: gpd.GeoDataFrame, voi: str
-) -> Tuple[gpd.GeoSeries, gpd.GeoDataFrame]:
-    """Function to clip GeoDataFrame to specific voivodeship borders
-
-    Args:
-        gdf (gpd.GeoDataFrame): GeoDataFrame containing stations data
-        geojson (gpd.GeoDataFrame): GeoDataFrame containing voivodeship borders
-        voi (str): Name of the voivodeship to clip the data to
-
-    Returns:
-        Tuple[gpd.GeoSeries, gpd.GeoDataFrame]: Tuple containing voivodeship polygon
-                                                and clipped GeoDataFrame
-    """
-    voi_polygon = geojson[geojson["name"] == voi]["geometry"]
-    voi_gdf = gdf[gdf.within(voi_polygon.geometry.iloc[0])]
-    return voi_polygon, voi_gdf
 
 
 def visualize_stations(
@@ -99,18 +59,3 @@ def visualize_stations(
     print(
         f"Figure with visualization of stations within specific voivodeship saved in results/{voi}_stations.png"
     )
-
-
-def visualize_voi_stations(gdf: gpd.GeoDataFrame, voi: str) -> None:
-    """Function to execute the "visualize stations for a chosen voivodeship" pipeline
-
-    Args:
-        gdf (gpd.GeoDataFrame): GeoDataFrame containing stations data
-        voi (str): Name of the voivodeship
-
-    Returns:
-            None
-    """
-    geojson = get_voivodeship_borders()
-    voi_polygon, voi_gdf = clip_to_voivodeship(gdf, geojson, voi)
-    visualize_stations(voi_polygon, voi_gdf, voi)

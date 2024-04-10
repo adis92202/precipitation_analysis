@@ -1,36 +1,28 @@
 import argparse
-from src.data_ingestion.download_stations import download_stations_data
-from src.data_ingestion.download_precipitations import download_precip_data
+from src.data_ingestion.download_data import get_data
 from src.visualizations.visualize_stations import (
-    visualize_voi_stations,
+    visualize_stations,
     get_voivodeship_names,
 )
 from src.visualizations.visualize_timeseries_data import visualize_available_voi_data
 from src.preprocessing.preprocessing_stations import get_and_save_voi_missing_stations
-import os
-import geopandas as gpd
-import pandas as pd
+from src.preprocessing.clipping import clip_data_to_voi
+from src.preprocessing.preprocessing_precip import preprocess_precipitation
 
 
 def main(voi):
-    if not os.path.exists("data/stations.shp"):
-        download_stations_data()
-    elif not os.path.exists("data/precipitation_data.csv"):
-        download_precip_data()
-    else:
-        print(
-            "The files precipitation_data.csv and stations.shp already exist in data/ directory."
-        )
+    # Data acquisition
+    all_precip, stations = get_data()
 
-    precip = pd.read_csv(
-        "data/precipitation_data.csv",
-        index_col=0,
-        dtype={"snow_cover_type_code": "object"},
-    )
-    gdf = gpd.read_file("data/stations.shp", encoding="cp1250")
-    visualize_voi_stations(gdf, voi)
-    visualize_available_voi_data(precip, gdf, voi)
-    get_and_save_voi_missing_stations(precip, gdf, voi)
+    # Preprocessing
+    voi_polygon, voi_precip, voi_stations = clip_data_to_voi(all_precip, stations, voi)
+    get_and_save_voi_missing_stations(all_precip, stations, voi)
+    preprocessed_df = preprocess_precipitation(voi_precip, voi)
+    # After ALL preprocessing is done - save the precip file (not earlier!)
+
+    # Visualizations
+    visualize_stations(voi_polygon, voi_stations, voi)
+    visualize_available_voi_data(voi_precip, voi)
 
 
 if __name__ == "__main__":

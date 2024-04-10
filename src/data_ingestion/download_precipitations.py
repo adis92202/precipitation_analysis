@@ -1,6 +1,7 @@
 import pandas as pd
 from zipfile import BadZipFile
 from .download_changes import download_changes_data
+from src.utils.utils import save_df
 
 
 def get_colnames() -> list[str]:
@@ -82,20 +83,6 @@ def implement_changes(
     return precipitation
 
 
-def save_df(df: pd.DataFrame, name: str):
-    """
-    Function for saving DataFrame to .csv file in data/ directory with given name
-
-        Args:
-            df (pd.DataFrame): DataFrame to be saved
-            name (str): Name of file
-
-        Returns:
-            None
-    """
-    df.to_csv("data/" + name)
-
-
 def download_precip_data() -> pd.DataFrame:
     """Function for downloading precipitation data
 
@@ -132,10 +119,10 @@ def download_precip_data() -> pd.DataFrame:
         precipitation_data, map_dict, "station_name"
     )
 
-    save_df(precipitation_data_wc, "precipitation_data.csv")
-
-    print(
-        "Precipitation data downloaded & saved in data/ directory under 'precipitation_data.csv' name"
+    save_df(
+        precipitation_data_wc,
+        "precipitation_data.csv",
+        "Precipitation data downloaded & saved in data/ directory under 'precipitation_data.csv' name",
     )
 
     return precipitation_data_wc
