@@ -1,6 +1,7 @@
 import pandas as pd
 import geopandas as gpd
 from shapely.geometry import Point
+from src.utils.utils import dms_to_dd, save_gdf
 
 
 def move_right(row: pd.Series) -> pd.Series:
@@ -21,21 +22,6 @@ def move_right(row: pd.Series) -> pd.Series:
     return row
 
 
-def dms_to_dd(coord: str) -> float:
-    """
-    Function to convert dms to dd
-
-        Args:
-            coord (str): Coordinates in dms (degrees minutes seconds) format
-
-        Returns:
-            dd (float): Coordinates in dd format
-    """
-    degrees, minutes, seconds = coord.split()
-    dd = float(degrees) + float(minutes) / 60 + float(seconds) / (60 * 60)
-    return dd
-
-
 def get_column_names() -> list[str]:
     """
     Function for getting column names for GeoDataFrame
@@ -48,7 +34,7 @@ def get_column_names() -> list[str]:
     return columns
 
 
-def create_gdf(df: pd.DataFrame) -> gpd.GeoDataFrame:
+def create_stations_gdf(df: pd.DataFrame) -> gpd.GeoDataFrame:
     """
     Function for creating GeoDataFrame from pandas DataFrame
 
@@ -62,21 +48,6 @@ def create_gdf(df: pd.DataFrame) -> gpd.GeoDataFrame:
     gdf = gpd.GeoDataFrame(df, geometry=geometry, crs="EPSG:4326")
 
     return gdf
-
-
-def save_gdf(gdf: gpd.GeoDataFrame, name: str, iname: str) -> None:
-    """
-    Function for saving GeoDataFrame to .shp file in data/ directory with given name and index
-
-        Args:
-            gdf (gpd.GeoDataFrame): GeoDataFrame to be saved
-            name (str): Name of file
-            iname (str): Column name of index
-
-        Returns:
-            None
-    """
-    gdf.to_file("data/" + name, index=iname, encoding="cp1250")
 
 
 def download_stations_data() -> gpd.GeoDataFrame:
@@ -104,12 +75,13 @@ def download_stations_data() -> gpd.GeoDataFrame:
     stations["lon"] = stations["lon"].apply(dms_to_dd)
     stations["lat"] = stations["lat"].apply(dms_to_dd)
 
-    stations_gdf = create_gdf(stations)
+    stations_gdf = create_stations_gdf(stations)
 
-    save_gdf(stations_gdf, "stations.shp", "N")
-
-    print(
-        "Stations data downloaded & saved in data/ directory under 'stations.shp' name"
+    save_gdf(
+        stations_gdf,
+        "stations.shp",
+        "N",
+        "Stations data downloaded & saved in data/ directory under 'stations.shp' name",
     )
 
     return stations_gdf

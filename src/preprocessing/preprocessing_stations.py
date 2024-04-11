@@ -1,10 +1,7 @@
 import pandas as pd
 import geopandas as gpd
-from ..visualizations.visualize_stations import (
-    get_voivodeship_borders,
-    clip_to_voivodeship,
-)
-from ..data_ingestion.download_precipitations import save_df
+from .clipping import get_voivodeship_borders, clip_to_voivodeship
+from src.utils.utils import save_df
 
 
 def get_and_save_voi_missing_stations(
