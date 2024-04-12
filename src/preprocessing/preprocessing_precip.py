@@ -73,6 +73,36 @@ def filling_data(df: pd.DataFrame) -> pd.DataFrame:
 
     return df_filled
 
+def transforming_data(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Function performing data transformation to correct data types and prepare for analysis.
+    Transformed columns are:
+        year, month, date - merged to a date format column
+        snow_cover_cm, altitude - int corrected to float
+
+    Args:
+        df (pd.DataFrame): Filled data.
+
+    Returns:
+        pd.DataFrame: Transformed data.
+
+    """
+
+    print("Transforming data (correcting data types)...")
+
+    df_t = df.copy()
+    df_t['date'] = pd.to_datetime(df_t[['year', 'month', 'day']])
+    df_t.drop(['year', 'month', 'day'], axis=1, inplace=True)
+    df_t.set_index('date', inplace=True)
+
+    df_t['altitude'] = df_t['altitude'].astype(float)
+    df_t['snow_cover_cm'] = df_t['snow_cover_cm'].astype(float)
+
+    print("Transforming data ended.")
+
+    return df_t
+
+
 
 def preprocess_precipitation(df: pd.DataFrame, voi: str) -> pd.DataFrame:
     """This is a pipeline function for invoking all preprocessing for the precipitation data
@@ -87,5 +117,6 @@ def preprocess_precipitation(df: pd.DataFrame, voi: str) -> pd.DataFrame:
     """
     cleaned_df = cleaning_data(df, voi)
     filled_df = filling_data(cleaned_df)
+    transformed_df = transforming_data(filled_df)
 
-    return filled_df
+    return transformed_df
