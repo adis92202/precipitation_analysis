@@ -3,23 +3,27 @@ from scipy import stats
 from typing import Tuple
 from src.utils.utils import save_df
 
-def calculate_SPI(df: pd.DataFrame, window: int) -> pd.DataFrame:
+def calculate_SPI(df: pd.DataFrame) -> pd.DataFrame:
     """
-    Function to calculate Standardized Precipitation Index (SPI) for the given DataFrame.
+    Function to calculate Standardized Precipitation Index (SPI) for the given DataFrame. 
+    The function fits a gamma distribution to the precipitation data and then transforms the 
+    cumulative distribution function (CDF) of the gamma distribution to calculate the SPI values.
+    The returned DataFrame has the same index as the input DataFrame, with each date associated 
+    with its corresponding SPI value.
 
     Args:
     df (pd.DataFrame): DataFrame containing the '24h_precipitation_mm' column with precipitation data.
-    window (int): Window size in days to compute the precipitation sum.
 
     Returns:
     pd.DataFrame: DataFrame containing SPI for the given data.
     """
-    precip_sum = df['24h_precipitation_mm'].rolling(window=window).sum().dropna()
+    precip_sum = df['24h_precipitation_mm']
     params = stats.gamma.fit(precip_sum, floc=0)
     shape, loc, scale = params
     cdf = stats.gamma.cdf(precip_sum, shape, loc, scale)
     SPI = stats.norm.ppf(cdf)
-    return pd.DataFrame(SPI)
+    return pd.DataFrame({"SPI":SPI},index=df.index)
+
 
 def get_SPI(df: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     """
@@ -34,13 +38,21 @@ def get_SPI(df: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]
 
     print("Calculating SPI...")
 
-    SPI_1 = calculate_SPI(df, window=30)
-    SPI_3 = calculate_SPI(df, window=90)
-    SPI_12 = calculate_SPI(df, window=365)
-    save_df(SPI_1,'SPI_1.csv')
-    save_df(SPI_3,'SPI_3.csv')
-    save_df(SPI_12,'SPI_12.csv')
+    df.index = pd.to_datetime(df.index)
 
-    print("Calculated SPI.")
+    SPI_1Y = df.resample('YE').agg({"24h_precipitation_mm":'sum'}).dropna()   
+    SPI_1 = calculate_SPI(SPI_1Y)
+
+    SPI_3M = df.resample('QE').agg({"24h_precipitation_mm":'sum'}).dropna()   
+    SPI_3 = calculate_SPI(SPI_3M)
+
+    SPI_1M = df.resample('ME').agg({"24h_precipitation_mm":'sum'}).dropna()  
+    SPI_12 = calculate_SPI(SPI_1M)
+
+    save_df(SPI_1,'SPI_yearly.csv','results')
+    save_df(SPI_3,'SPI_quarterly.csv','results')
+    save_df(SPI_12,'SPI_monthly.csv','results')
+
+    print("SPI calculated.")
 
     return SPI_1, SPI_3, SPI_12

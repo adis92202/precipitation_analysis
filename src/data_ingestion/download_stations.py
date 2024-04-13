@@ -81,6 +81,7 @@ def download_stations_data() -> gpd.GeoDataFrame:
         stations_gdf,
         "stations.shp",
         "N",
+        "data",
         "Stations data downloaded & saved in data/ directory under 'stations.shp' name",
     )
 

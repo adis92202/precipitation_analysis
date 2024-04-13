@@ -95,6 +95,7 @@ def transforming_data(df: pd.DataFrame) -> pd.DataFrame:
     df_t.drop(['year', 'month', 'day'], axis=1, inplace=True)
     df_t.set_index('date', inplace=True)
 
+    df_t['altitude'] = df_t['altitude'].str.replace(' ', '')
     df_t['altitude'] = df_t['altitude'].astype(float)
     df_t['snow_cover_cm'] = df_t['snow_cover_cm'].astype(float)
 
