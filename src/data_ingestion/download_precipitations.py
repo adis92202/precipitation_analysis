@@ -122,6 +122,7 @@ def download_precip_data() -> pd.DataFrame:
     save_df(
         precipitation_data_wc,
         "precipitation_data.csv",
+        "data",
         "Precipitation data downloaded & saved in data/ directory under 'precipitation_data.csv' name",
     )
 
