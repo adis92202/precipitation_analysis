@@ -167,6 +167,7 @@ def visualize_with_hue(df: pd.DataFrame, voi:str, hue_column: str) -> None:
     fig, ax = plt.subplots(1, 1, figsize=(12,10))
     sns.boxplot(data=df, y=col[0], x=hue_column, ax=ax)
     ax.set_title(f'Distribution of Precipitation (mm) with {hue_column} as hue')
+    ax.set_ylabel('Precipitation (mm)')
     ax.set_xticks(ticks = range(len(x_ticks)), labels=x_ticks)
     ax.set_xticklabels(x_ticks, rotation = 45)
 
@@ -176,14 +177,14 @@ def visualize_with_hue(df: pd.DataFrame, voi:str, hue_column: str) -> None:
         f"Figure with boxplots (with hue = {hue_column}) of precipitation data saved in results/{voi}_precip_boxplot_{hue_column}_data.png"
     )
 
-    if hue_column != "river" and hue_column != "station_name":
+    if hue_column == "precip_type":
         fig, ax = plt.subplots(1, 1, figsize=(15, 5))
         sns.lineplot(data=df, x='date', y=col[0],  ax=ax, errorbar=None, hue=hue_column, alpha=0.5)
         ax.set_ylim(0,75)
-        ax.set_title(f'Time series of Precipitation (mm) with {hue_column} as hue')
+        ax.set_title(f'Time series of Precipitation (mm) with Precipitation type as hue')
         ax.set_ylabel('Precipitation (mm)')
         ax.set_xlabel('Date')
-        ax.legend(loc='upper right', title=hue_column)
+        ax.legend(loc='upper right', title="Precipitation type")
         
         plt.savefig(f"results/{voi}_precip_time_series_{hue_column}_data.png")
 
