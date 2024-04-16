@@ -166,7 +166,16 @@ def visualize_with_hue(df: pd.DataFrame, voi:str, hue_column: str) -> None:
 
     fig, ax = plt.subplots(1, 1, figsize=(12,10))
     sns.boxplot(data=df, y=col[0], x=hue_column, ax=ax)
-    ax.set_title(f'Distribution of Precipitation (mm) with {hue_column} as hue')
+
+    if hue_column == "precip_type":
+        h_col = "Precipitation type"
+    elif hue_column == "station_name":
+        h_col = "Station name"
+    elif hue_column == "river":
+        h_col = "River"
+
+    ax.set_title(f'Distribution of Precipitation (mm) with {h_col} as hue')
+    ax.set_xlabel(h_col)
     ax.set_ylabel('Precipitation (mm)')
     ax.set_xticks(ticks = range(len(x_ticks)), labels=x_ticks)
     ax.set_xticklabels(x_ticks, rotation = 45)
