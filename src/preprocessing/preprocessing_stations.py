@@ -43,4 +43,4 @@ def get_and_save_voi_missing_stations(
         .drop_duplicates()
         .reset_index(drop=True)
     )
-    save_df(missing_stations_unique, f"{voi}_missing_stations.csv")
+    save_df(missing_stations_unique, f"{voi}_missing_stations.csv", "data")
