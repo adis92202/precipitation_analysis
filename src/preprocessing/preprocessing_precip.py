@@ -73,6 +73,7 @@ def filling_data(df: pd.DataFrame) -> pd.DataFrame:
 
     return df_filled
 
+
 def transforming_data(df: pd.DataFrame) -> pd.DataFrame:
     """
     Function performing data transformation to correct data types and prepare for analysis.
@@ -91,18 +92,17 @@ def transforming_data(df: pd.DataFrame) -> pd.DataFrame:
     print("Transforming data (correcting data types)...")
 
     df_t = df.copy()
-    df_t['date'] = pd.to_datetime(df_t[['year', 'month', 'day']])
-    df_t.drop(['year', 'month', 'day'], axis=1, inplace=True)
-    df_t.set_index('date', inplace=True)
+    df_t["date"] = pd.to_datetime(df_t[["year", "month", "day"]])
+    df_t.drop(["year", "month", "day"], axis=1, inplace=True)
+    df_t.set_index("date", inplace=True)
 
-    df_t['altitude'] = df_t['altitude'].str.replace(' ', '')
-    df_t['altitude'] = df_t['altitude'].astype(float)
-    df_t['snow_cover_cm'] = df_t['snow_cover_cm'].astype(float)
+    df_t["altitude"] = df_t["altitude"].str.replace(" ", "")
+    df_t["altitude"] = df_t["altitude"].astype(float)
+    df_t["snow_cover_cm"] = df_t["snow_cover_cm"].astype(float)
 
     print("Transforming data ended.")
 
     return df_t
-
 
 
 def preprocess_precipitation(df: pd.DataFrame, voi: str) -> pd.DataFrame:
