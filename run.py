@@ -26,7 +26,7 @@ def main(voi):
 
     # Obtaining basic statistics for preprocessed data
     get_basic_statistics(preprocessed_df, voi)
-    
+
     # Visualizations
     visualize_stations(voi_polygon, voi_stations, voi)
     visualize_available_voi_data(voi_precip, voi)
@@ -35,7 +35,13 @@ def main(voi):
     visualize_EDA(preprocessed_df, voi)
 
     # SPI calculations for precipitation data
-    SPI_1, SPI_3, SPI_12 = get_SPI(preprocessed_df)
+    SPI_1, SPI_3, SPI_12 = get_SPI(preprocessed_df, voi)
+
+    # SPI analysis based on voivodeship stations
+    # ...
+
+    # SPI analysis based on voivodeship
+    # ...
 
 
 if __name__ == "__main__":

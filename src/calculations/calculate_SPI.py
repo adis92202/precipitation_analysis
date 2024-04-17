@@ -19,6 +19,7 @@ def calculate_SPI(df: pd.DataFrame) -> pd.DataFrame:
     pd.DataFrame: DataFrame containing SPI for the given data.
     """
     precip_sum = df["24h_precipitation_mm"]
+    precip_sum[precip_sum <= 0] = 1e-15
     params = stats.gamma.fit(precip_sum, floc=0)
     shape, loc, scale = params
     cdf = stats.gamma.cdf(precip_sum, shape, loc, scale)
@@ -26,12 +27,16 @@ def calculate_SPI(df: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame({"SPI": SPI}, index=df.index)
 
 
-def get_SPI(df: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+def get_SPI(
+    df: pd.DataFrame, voi: str, save=True
+) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     """
     Function to calculate SPI for different periods (SPI-1, SPI-3, SPI-12) and save them to CSV files.
 
     Args:
     df (pd.DataFrame): DataFrame containing the '24h_precipitation_mm' column with precipitation data.
+    voi (str): Name of the analyzed voivodeship.
+    save (bool): Flags whether to save the SPI results.
 
     Returns:
     tuple: Tuple containing SPI-1, SPI-3, and SPI-12 as DataFrames.
@@ -50,9 +55,10 @@ def get_SPI(df: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]
     SPI_1M = df.resample("ME").agg({"24h_precipitation_mm": "sum"}).dropna()
     SPI_12 = calculate_SPI(SPI_1M)
 
-    save_df(SPI_1, "SPI_yearly.csv", "results")
-    save_df(SPI_3, "SPI_quarterly.csv", "results")
-    save_df(SPI_12, "SPI_monthly.csv", "results")
+    if save:
+        save_df(SPI_1, f"{voi}_SPI_yearly.csv", "results")
+        save_df(SPI_3, f"{voi}_SPI_quarterly.csv", "results")
+        save_df(SPI_12, f"{voi}_SPI_monthly.csv", "results")
 
     print("SPI calculated.")
 
