@@ -92,23 +92,24 @@ def compare_stations_SPI(
         voi (str): Name of the voivodeship.
     """
 
-    SPI_1_resampled = SPI_1.resample("YE").agg({"SPI": "mean"})
-    SPI_3_resampled = SPI_3.resample("YE").agg({"SPI": "mean"})
+    common_index = SPI_1.index.intersection(SPI_3.index).intersection(SPI_12.index)
+    SPI_1_common = SPI_1.loc[common_index]
+    SPI_3_common = SPI_3.loc[common_index]
 
     fig, ax = plt.subplots(1, 1, figsize=(10, 6))
 
     sns.lineplot(
-        SPI_1_resampled,
-        x=SPI_1_resampled.index,
-        y=SPI_1_resampled["SPI"],
+        SPI_1_common,
+        x=SPI_1_common.index,
+        y=SPI_1_common["SPI"],
         ax=ax,
         label="SPI_1",
         alpha=0.5,
     )
     sns.lineplot(
-        SPI_3_resampled,
-        x=SPI_3_resampled.index,
-        y=SPI_3_resampled["SPI"],
+        SPI_3_common,
+        x=SPI_3_common.index,
+        y=SPI_3_common["SPI"],
         ax=ax,
         label="SPI_3",
         alpha=0.5,
