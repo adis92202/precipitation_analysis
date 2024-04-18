@@ -44,11 +44,13 @@ def visualize_stations_SPI(
         "Extreme drought",
     ]
 
+    fig, ax = plt.subplots(3, 1, figsize=(14, 17))
+    n = 0
+
     for spi_key, spi_val in SPI_dict.items():
-        fig, ax = plt.subplots(1, 1, figsize=(10, 6))
 
         sns.lineplot(
-            spi_val, x=spi_val.index, y="SPI", color="darkgrey", alpha=0.7, ax=ax
+            spi_val, x=spi_val.index, y="SPI", color="darkgrey", alpha=0.7, ax=ax[n]
         )
 
         sns.scatterplot(
@@ -56,27 +58,33 @@ def visualize_stations_SPI(
             x=spi_val.index,
             y="SPI",
             hue="State",
-            ax=ax,
+            ax=ax[n],
             palette=color_palette,
             hue_order=hue_order,
         )
 
-        ax.legend(
+        ax[n].legend(
             title="Precipitation conditions",
             loc="right",
-            bbox_to_anchor=(0.77, 0.25, 0.5, 0.5),
+            bbox_to_anchor=(0.69, 0.25, 0.5, 0.5),
         )
-        ax.set(
+        ax[n].set(
             title=f"{spi_key} over time for station {s} in {voi} voivodeship",
             xlabel="Date",
             ylabel="SPI",
         )
-        ax.grid(True)
-        plt.savefig(f"results/{spi_key}_{s}-{voi}.png", bbox_inches="tight")
-        plt.close(fig)
-        print(
-            f"Figure with {spi_key} for station {s} in {voi} voivodeship saved in results/{spi_key}_{s}-{voi}.png"
-        )
+        ax[n].grid(True)
+        n += 1
+
+    plt.suptitle(
+        f"SPIs over time for {s} staion in {voi} voivodeship", y=1, fontsize=16
+    )
+    plt.tight_layout()
+    plt.savefig(f"results/SPIs_{s}-{voi}.png", bbox_inches="tight")
+    plt.close(fig)
+    print(
+        f"Figure with SPIs for station {s} in {voi} voivodeship saved in results/{spi_key}_{s}-{voi}.png"
+    )
 
 
 def compare_stations_SPI(
