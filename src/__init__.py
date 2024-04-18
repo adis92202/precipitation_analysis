@@ -1,1 +1,8 @@
-__all__ = ["calculations", "data_ingestion", "preprocessing", "utils", "visualizations"]
+__all__ = [
+    "analysis",
+    "calculations",
+    "data_ingestion",
+    "preprocessing",
+    "utils",
+    "visualizations",
+]
