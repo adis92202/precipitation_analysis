@@ -1,1 +1,1 @@
-all = ["stations_SPI.py", "voi_SPI.py"]
+all = ["SPI_analysis"]
