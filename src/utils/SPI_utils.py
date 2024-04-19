@@ -21,3 +21,4 @@ def map_to_range(value: float) -> str:
     for range_name, (lower_bound, upper_bound) in SPI_ranges.items():
         if lower_bound <= value <= upper_bound:
             return f"{range_name}"
+    return "Wrong range"

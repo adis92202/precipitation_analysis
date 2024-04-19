@@ -12,8 +12,7 @@ from src.calculations.obtain_basic_statistics import get_basic_statistics
 from src.utils.utils import save_df
 from src.visualizations.visualize_EDA_results import visualize_EDA
 from src.calculations.calculate_SPI import get_SPI
-from src.analysis.stations_SPI import stations_SPI_pipeline
-from src.analysis.voi_SPI import voi_SPI_pipeline
+from src.analysis.SPI_analysis import stations_SPI_pipeline, voi_SPI_pipeline
 
 
 def main(voi):

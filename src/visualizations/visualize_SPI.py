@@ -6,17 +6,22 @@ from shapely.geometry import Point
 from src.utils.SPI_utils import map_to_range
 
 
-def visualize_stations_SPI(
-    SPI_1: pd.DataFrame, SPI_3: pd.DataFrame, SPI_12: pd.DataFrame, s: str, voi: str
+def visualize_SPI(
+    SPI_1: pd.DataFrame,
+    SPI_3: pd.DataFrame,
+    SPI_12: pd.DataFrame,
+    voi: str,
+    station_name: str = None,
 ) -> None:
-    """Visualization of SPIs over time for some particular station_name in some voivodeship.
+    """Visualization of SPIs over time for some particular station_name in some voivodeship (if station_name != None)
+       or for a particular voivodeship (if station_name = None).
 
     Args:
         SPI_1 (pd.DataFrame): Pandas DataFrame containing SPI calculated for one month for a particular station_name.
         SPI_3 (pd.DataFrame): Pandas DataFrame containing SPI calculated for one quater for a particular station_name.
         SPI_12 (pd.DataFrame): Pandas DataFrame containing SPI calculated for one year for a particular station_name.
-        s (str): Name of the measuring station.
         voi (str): Name of the voivodeship.
+        station_name (str): Name of the measuring station. Defaults to None.
     """
 
     SPI_1["State"] = SPI_1["SPI"].map(map_to_range)
@@ -44,6 +49,17 @@ def visualize_stations_SPI(
         "Extreme drought",
     ]
 
+    if station_name:
+        plot_title = f"the station {station_name} in {voi} voivodeship"
+        plot_suptitle = f"SPIs over time for {station_name} staion in {voi} voivodeship"
+        plot_name = f"results/SPIs_{station_name}-{voi}.png"
+        message = f"Figure with SPIs for station {station_name} in {voi} voivodeship saved in results/SPIs_{station_name}-{voi}.png"
+    else:
+        plot_title = f"the {voi} voivodeship"
+        plot_suptitle = f"SPIs over time for the {voi} voivodeship"
+        plot_name = f"results/SPI_{voi}.png"
+        message = f"Figure with SPI over time for the {voi} voivodeship saved in results/SPI_{voi}.png"
+
     fig, ax = plt.subplots(3, 1, figsize=(14, 17))
     n = 0
 
@@ -69,22 +85,18 @@ def visualize_stations_SPI(
             bbox_to_anchor=(0.69, 0.25, 0.5, 0.5),
         )
         ax[n].set(
-            title=f"{spi_key} over time for station {s} in {voi} voivodeship",
+            title=f"{spi_key} over time for " + plot_title,
             xlabel="Date",
             ylabel="SPI",
         )
         ax[n].grid(True)
         n += 1
 
-    plt.suptitle(
-        f"SPIs over time for {s} staion in {voi} voivodeship", y=1, fontsize=16
-    )
+    plt.suptitle(plot_suptitle, y=1, fontsize=16)
     plt.tight_layout()
-    plt.savefig(f"results/SPIs_{s}-{voi}.png", bbox_inches="tight")
+    plt.savefig(plot_name, bbox_inches="tight")
     plt.close(fig)
-    print(
-        f"Figure with SPIs for station {s} in {voi} voivodeship saved in results/{spi_key}_{s}-{voi}.png"
-    )
+    print(message)
 
 
 def compare_stations_SPI(
