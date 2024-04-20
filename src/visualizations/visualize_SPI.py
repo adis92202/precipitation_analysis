@@ -143,6 +143,7 @@ def compare_stations_SPI(
     )
     ax.grid(True)
     plt.savefig(f"results/SPI_comparison_{s}-{voi}.png", bbox_inches="tight")
+    plt.close(fig)
     print(
         f"Figure with SPIs comparison for station {s} in {voi} voivodeship saved in results/SPI_comparison_{s}-{voi}.png"
     )
@@ -179,7 +180,7 @@ def plot_spi_points(
     x, y = voi_polygon.iloc[0].exterior.xy
 
     ax.plot(x, y, color="blue")
-    ax.set_xlim([min(gdf.geometry.x) - 0.75, max(gdf.geometry.x) + 0.75])
+    ax.set_xlim([min(gdf.geometry.x) - 1.25, max(gdf.geometry.x) + 1.25])
     ax.set_ylim([min(gdf.geometry.y) - 0.75, max(gdf.geometry.y) + 0.75])
 
     sns.scatterplot(
@@ -219,7 +220,7 @@ def voi_SPI_map(
     gdf["SPI_3_State"] = gdf["SPI_3"].map(map_to_range)
     gdf["SPI_12_State"] = gdf["SPI_12"].map(map_to_range)
 
-    fig, ax = plt.subplots(1, 3, figsize=(20, 10))
+    fig, ax = plt.subplots(1, 3, figsize=(30, 10))
 
     titles = [f"Mean SPI_{i} in {voi} over time" for i in [1, 3, 12]]
     columns = ["SPI_1_State", "SPI_3_State", "SPI_12_State"]

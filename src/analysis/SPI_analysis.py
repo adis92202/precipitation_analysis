@@ -70,12 +70,24 @@ def stations_SPI_pipeline(
     )
 
     for s in station_names:
-        SPI_1, SPI_3, SPI_12 = get_SPI(
+        if get_SPI(
             preprocessed_voi_df[preprocessed_voi_df["station_name"] == s],
             voi,
             False,
-        )
+        ):
+            SPI_1, SPI_3, SPI_12 = get_SPI(
+                preprocessed_voi_df[preprocessed_voi_df["station_name"] == s],
+                voi,
+                False,
+            )
 
+            SPI_1["SPI"] = SPI_1["SPI"].round(2)
+            SPI_3["SPI"] = SPI_3["SPI"].round(2)
+            SPI_12["SPI"] = SPI_12["SPI"].round(2)
+
+            get_SPI_statistics(SPI_1, SPI_3, SPI_12, voi, s)
+            visualize_SPI(SPI_1, SPI_3, SPI_12, voi, s)
+            compare_stations_SPI(SPI_1, SPI_3, SPI_12, s, voi)
         avg_SPIs.loc[s, "SPI_1"] = SPI_1["SPI"].mean()
         avg_SPIs.loc[s, "SPI_3"] = SPI_3["SPI"].mean()
         avg_SPIs.loc[s, "SPI_12"] = SPI_12["SPI"].mean()
@@ -85,14 +97,6 @@ def stations_SPI_pipeline(
         avg_SPIs.loc[s, "lon"] = preprocessed_voi_df[
             preprocessed_voi_df["station_name"] == s
         ]["lon"].iloc[0]
-
-        SPI_1["SPI"] = SPI_1["SPI"].round(2)
-        SPI_3["SPI"] = SPI_3["SPI"].round(2)
-        SPI_12["SPI"] = SPI_12["SPI"].round(2)
-
-        get_SPI_statistics(SPI_1, SPI_3, SPI_12, voi, s)
-        visualize_SPI(SPI_1, SPI_3, SPI_12, voi, s)
-        compare_stations_SPI(SPI_1, SPI_3, SPI_12, s, voi)
     voi_SPI_map(avg_SPIs, voi_polygon, voi)
 
 

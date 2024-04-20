@@ -16,7 +16,7 @@ def visualize_pairplot(df: pd.DataFrame, voi: str) -> None:
     Returns:
         None
     """
-    df = df[df.columns.difference(["station_code"])]
+    df = df[df.columns.difference(["station_code"])].reset_index(drop=True)
     sns.pairplot(df)
     plt.suptitle("Precipitation data pairplot", x=0.5, y=1, fontsize=20)
     plt.get_current_fig_manager().set_window_title("Precipitation data pairplot")

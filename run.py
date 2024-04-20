@@ -5,7 +5,7 @@ from src.visualizations.visualize_stations import (
     get_voivodeship_names,
 )
 from src.visualizations.visualize_timeseries_data import visualize_available_voi_data
-from src.preprocessing.preprocessing_stations import get_and_save_voi_missing_stations
+from src.preprocessing.preprocessing_stations import get_and_save_missing_stations
 from src.preprocessing.clipping import clip_data_to_voi
 from src.preprocessing.preprocessing_precip import preprocess_precipitation
 from src.calculations.obtain_basic_statistics import get_basic_statistics
@@ -21,7 +21,7 @@ def main(voi):
 
     # Preprocessing
     voi_polygon, voi_precip, voi_stations = clip_data_to_voi(all_precip, stations, voi)
-    get_and_save_voi_missing_stations(all_precip, stations, voi)
+    get_and_save_missing_stations(all_precip, stations)
     preprocessed_df = preprocess_precipitation(voi_precip, voi)
     save_df(preprocessed_df, f"preprocessed_{voi}_data.csv", "data")
 
