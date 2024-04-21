@@ -1,0 +1,1 @@
+all = ["SPI_analysis"]

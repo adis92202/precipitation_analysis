@@ -35,14 +35,9 @@ def visualize_stations(
     Returns:
             None
     """
-    world = gpd.read_file("data/ne_110m_admin_0_countries.zip")
-    # world = gpd.read_file(
-    #     "https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/cultural/ne_110m_admin_0_countries.zip"
-    # )
-
-    ax = world.plot(figsize=(10, 10), color="lightgrey")
-
-    voi_polygon.plot(ax=ax, color="none", edgecolor="blue", label=voi)
+    ax = voi_polygon.plot(
+        figsize=(10, 10), color="lightgrey", edgecolor="blue", label=voi
+    )
     voi_gdf.plot(ax=ax, color="red", markersize=25)
 
     for x, y, label in zip(voi_gdf.geometry.x, voi_gdf.geometry.y, voi_gdf["name"]):
