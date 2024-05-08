@@ -1,0 +1,59 @@
+## SPI analysis based on an each station in the Lubusz voivodeship
+In the Lubusz voivodeship we can specify six measuring stations:
+* Babimost,
+* Drezdenko,
+* Krzyż,
+* Lubinicko-Świebodzin,
+* Sanice,
+* Żagań.
+
+#### Babimost
+Based on descriptive statistics, we can estimate that the precipitation in the region is rather intermediate, with a mean across all SPIs of about 0.1. (SPI-1 yields slightly higher results, while others are a bit lower.) The minimal value for SPI-1 is -6.26, which is quite concerning, as values below -2 are considered "Extreme drought." Other SPIs also have relatively low minimal values (-4.06 for SPI-3 and -2.1 for SPI-12). Regarding maximal values, they are not as high as the minimal ones - all of them are around 1.5, indicating "Very wet" conditions.
+
+Moving on to the analysis of SPIs over time, we can clearly see that moderate precipitation conditions prevail in the Babimost region. In some years, there are higher values of SPI-1 (about 1). It's worth noting that in recent years, there are two worrying values below -6. This could either be a measurement error or a sign that the local climate is becoming drier. As for SPI-3, the differences between time periods are more pronounced. Very wet conditions are observed more frequently, but most of the time, precipitations are in the moderate range. In the SPI-3 plot, there is a point below -4, indicating "Extreme drought" as well. Switching to SPI-12, the range of values is smaller, ranging just between -2 and 2. Most of them fall within the "Moderate conditions" range, while in the year 2011, some indicate wetter conditions, and some just after that - towards the end of 2012 and the beginning of 2013 - seem to be much drier. There is also one point indicating "Extreme drought," occurring earlier in time than in SPI-1 and SPI-3. It was at the end of 2016, whereas in the case of SPI-12, it occurred at the end of 2015.
+
+Comparing all SPIs together, we can see that SPI-1 has the most flat curve around 0 (except for the end of the year 2016). Others exhibit some fluctuations between -2 and 2. Overall, we can estimate the Babimost region to have moderate precipitation conditions.
+
+#### Drezdenko
+For the station in Drezdenko, we can draw similar conclusions as for the Babimost station. Minimal values are -7.09, -3.84, and -3.73 for SPI-1, SPI-3, and SPI-12 respectively. These values are quite concerning and imply that very dry periods can occur in this region. Mean values are also similar to those in Babimost, so we can estimate that this region mostly experiences intermediate precipitation conditions as well. Maximal values are higher in this case, at 2.18, 3.29, and 2.83 respectively.
+
+When considering the SPI-1 plot over time, we can observe more "Extreme drought" points than in the Babimost region, but still, most of the values are in the moderate range. Here, there is also a pattern of occurrence of very extremely dry periods in the recent years, which is quite critical. In the SPI-3 plot, there are more "Very wet" points, but still, there are some "Extreme drought" ones, though not as low as in SPI-1. From this, we can conclude that extremely dry periods do not last very long, at least up to the year 2022. In the SPI-12 plot, we can spot a very interesting change around the year 2018, which was not noticeable in the other plots. During this period, precipitation was much higher, with many values around 2.5. Apart from them, as in the other plots, most points are in the moderate range, with a few dry points in the recent years.
+
+In this case, comparing SPIs gives different results than in the Babimost region. SPI-1 has a much higher magnitude with four valleys below -6 in the years 2002, 2021, and 2022 (two of them). The SPI-12 curve is the most flat and close to zero, which is quite foreseeable considering the large summing window in this case. To sum up, the Drezdenko region experiences moderate precipitation conditions, but with a bigger tendency towards droughts than Babimost.
+
+#### Krzyż
+In Krzyż, located near Babimost, the precipitation conditions seem to be slightly better. Minimal values of -3.68, -2.04, and -1.54 for SPI-1, SPI-3, and SPI-12 respectively provide hope that this region does not have tendencies towards such significant droughts as the previous ones. Average values are all close to 0, while maximal ones are 2.68, 3.24, and 2.54 respectively. All this may indicate that this region is typically moderate with regular magnitudes of SPI values.
+
+Turning to the SPI-1 plot, our suspicions seem to be confirmed. Most points are in the "Moderate conditions" range, with just a few slightly above 2 and a few slightly below -2. Additionally, we can observe a tendency that after a very wet period, there is immediately a very dry one, which was not present in the previous regions. In the case of SPI-3, we can see a period with higher precipitations between the years 2016 and 2018, but unfortunately, there is a tendency for precipitation to decrease in recent years. SPI-12 indicates this period even more prominently, with a peak in the beginning of 2018. Apart from this period, precipitation conditions tend to be moderate.
+
+Comparing SPIs shows us that all of them are quite similar to each other, while, as always, SPI-12 has the least sharp trend. Just by looking at the SPI-3 curve, we can see some valleys.
+
+#### Lubinicko-Świebodzin
+Lubinicko-Świebodzin is a station located near Babimost. It has minimal values of -3.42, -1.92, and -1.38, and maximal ones of 2.95, 3.76, and 2.72 for SPI-1, SPI-3, and SPI-12 respectively. We can observe a certain change there; firstly, the magnitudes of maximums are higher than those of minimums, as are their means. The average values themselves are around 0, which is typical for this voivodeship.
+
+When examining the SPI-1 plot over time, we can observe two extremely wet points in the middle of the year 2017, and four extremely dry ones from the beginning of 2018 to the beginning of 2022. In this region, most of the precipitation conditions can be considered as moderate, similar to the previous ones. Considering SPI-3, we cannot overlook a peak in the middle of the year 2018, even higher than in the SPI-1 plot. Therefore, we can consider this period as very rainy. Also, in the middle of the year 2016 (likely August/September), there are quite high peaks of SPI values close to 2. In this plot, there are only two points where SPI is considered as "Severe drought." Looking at the SPI-12 plot, we can be sure that the period between the middle of 2017 and the middle of 2018 was extremely rainy, with a peak of around 2.8 at the beginning of 2018. Apart from this phenomenon, the rest of the SPI-12 values are in the "Moderate conditions" range.
+
+While comparing SPIs, the lines are quite similar. Of course, the most sharp one is SPI-1 with the smallest summing window, resulting in the highest variability, while SPI-12 with the biggest window has the lowest.
+
+#### Sanice
+The Sanice station is located in the very south of the Lubusz voivodeship, far from the previously described stations. It exhibits even less diverse SPI values than Lubinicko-Świebodzin, which is evident based on its ranges and standard deviations (=1). The minimal values are: -2.67, -1.83, and -1.72, while the maximal values are: 2.01, 2.67, and 1.9 for SPI-1, SPI-3, and SPI-12 respectively. Mean values are close to 0.
+
+There is not as much data about this station as about the previous ones - just around five years, so the number of points on the plot is also lower. Nevertheless, there is only one "Extremely wet" point around August 2020 and two "Extremely dry" points around May 2020 and December 2020. In this case, similar to the Krzyż station, wet periods are followed by very dry ones. Year 2020 appears to be full of extremes. The SPI-3 plot shows a similar pattern, indicating rainy periods in 2020, with August 2021 also showing increased precipitation. As we know, August is often a very rainy month, so this is consistent with expectations. The SPI-12 plot emphasizes August 2021 even more, almost disregarding the extremes of 2020. Of course, most of the points are in the "Moderate conditions" range.
+
+Comparing SPIs over such a short period of time does not yield as interesting results as previously observed. All lines are similar to each other, but the greatest variability of SPI-1 and the smallest of SPI-12 are still noticeable. As with the other stations, precipitation conditions mostly range between -1 and 1, indicating moderate conditions.
+
+#### Żagań
+Żagań is located nearly a hundred kilometers north of Sanice, but its statistics are still similar. Minimal values are: -3.59, -2.61, and -2.48, while maximal values are: 3.5, 2.73, and 2.3 for SPI-1, SPI-3, and SPI-12 respectively. As we can see, deviations up and down are quite alike. Mean values are close to 0.
+
+SPI-1 values across years are quite varied. Most of them are in the "Moderate conditions" range, but not as much as in the previous cases. There is a significant number of points in the "Very wet" and "Extremely wet" ranges, and a few in "Severe drought" and "Extremely drought". It is worth mentioning that these values are not very high/low - they are always close to the range of 2 to 3. In the case of SPI-3, the pattern is similar, of course, with smaller magnitude due to the window. The plot of SPI-12 is very interesting, as at the beginning of available data (around 1992-1994), there was an extreme drought in this region, which also occurred in 2018-2019 and 2023. There were also very rainy periods, one just after this severe drought in 1994, and others in 2002/2003, 2009, and between 2011 and 2014. Overall, this plot suggests a very large variation in rainfall in this region.
+
+Comparing SPIs in this region shows the previously noticed pattern - the bigger the window, the flatter the curve. The precipitation conditions are mostly moderate but tend to fluctuate up and down.
+
+## SPI analysis for the whole Lubusz voivodeship
+Now, let's focus on the whole Lubusz region. The descriptive statistics resemble those of the previously analyzed individual stations, but they are a bit more balanced. The minimal values are: -1.62, -2.23, and -3.13, while the maximal ones are: 2.33, 3.45, and 3.35 for SPI-1, SPI-3, and SPI-12 respectively. Mean values are around 0, but all are negative. Just from these statistics, we can see that the Lubusz voivodeship has moderate precipitation conditions with a tendency to become drier, but there are periods where it is very rainy.
+
+Focusing on the map with mean SPIs across all years, the verdict is simple. No matter whether it is in the north or south of the voivodeship, rainfall is always moderate. Unfortunately, we cannot compare the western with the eastern part, as our stations are located just in the center or east of Lubusz.
+
+When we look at the SPIs over time plot, we can say that overall, Lubusz is becoming rainier! This is quite good information, as most of our country is struggling with droughts now, but looking at the SPI-1 plot, we can clearly see that from the year 2016 in the Lubusz voivodeship, the rainfall has been pretty extreme (this is not the best information, but it is good that there is rain at all). It is also worth noting that around the year 1992-1994, there were severe droughts, while in other periods, precipitation conditions were quite moderate. The SPI-3 plot shows pretty much the same, with a slightly more balanced scale. Additionally, it indicates droughts in 1996, 1998, and 2003. As always, SPI-12 is the most balanced one, due to the big window size.
+
+Summing up, the Lubusz voivodeship has moderate precipitation conditions, with a tendency toward heavy rainfall in recent years. While this is quite promising, we have to be aware that such a large amount of rain could cause flash floods and crop losses.

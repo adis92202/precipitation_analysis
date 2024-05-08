@@ -57,7 +57,7 @@ To run this project do the steps below:
     - KuyavianPomeranian
     - GreaterPoland
     - Świętokrzyskie
-4. The data will appear in 'data' folder and other results in 'results' folder
+4. The data will appear in 'data' folder and other results in 'results' folder. In documentation/generated_files.md file you can find a description of generated figures and files.
 
 ### Authors:
 - [Anna Kaniowska](https://github.com/ania15)

@@ -1,1 +1,1 @@
-__all__ = ["obtain_basic_statistics.py", "calculate_SPI.py"]
+__all__ = ["obtain_basic_statistics", "calculate_SPI"]

@@ -15,3 +15,8 @@ The code logic, or rather the order of actions taken in this analysis are as fol
         - Time series of precipitation columns (also depending on other features).
         - Distributions of data (histograms, boxplots), relationships between columns (pairplot, correlation - heatmap).
 4. SPI Calculations - calculating SPI for three different time windows (1 month, 3 months, 12 months) using gamma distribution.
+5. SPI analysis, especially focusing on the chosen region - Lubusz voivodeship and its stations.
+    1. Calculation of basic descriptive statistics for the entire Lubusz region and each station individually.
+    2. Visualization of SPI values over time.
+    3. Plotting mean values of SPIs across all available years on the map.
+    4. Comparison of SPIs with each other.

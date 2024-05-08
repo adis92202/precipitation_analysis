@@ -1,1 +1,6 @@
-__all__ = ["visualize_stations", "visualize_timeseries_data", "visualize_EDA_results"]
+__all__ = [
+    "visualize_stations",
+    "visualize_timeseries_data",
+    "visualize_EDA_results",
+    "visualize_SPI",
+]

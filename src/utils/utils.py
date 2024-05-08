@@ -37,7 +37,9 @@ def dms_to_dd(coord: str) -> float:
     return dd
 
 
-def save_gdf(gdf: gpd.GeoDataFrame, name: str, iname: str, directory: str, message=None) -> None:
+def save_gdf(
+    gdf: gpd.GeoDataFrame, name: str, iname: str, directory: str, message=None
+) -> None:
     """
     Function for saving GeoDataFrame to .shp file in given directory with given name and index
 
@@ -70,9 +72,8 @@ def map_column_names(columns: list) -> list:
     list: List of mapped column names.
     """
     column_mapping = {
-        '24h_precipitation_mm': 'Precipitation (mm)',
-        'snow_cover_cm': 'Snow Cover (cm)',
+        "24h_precipitation_mm": "Precipitation (mm)",
+        "snow_cover_cm": "Snow Cover (cm)",
     }
-    
-    return [column_mapping.get(col, col) for col in columns]
 
+    return [column_mapping.get(col, col) for col in columns]

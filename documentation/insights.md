@@ -23,4 +23,10 @@ Main conclusions for Lubusz voivodeship:
 - Data grouped by 6 rivers located in Lubusz voivodeship does not show any particular patterns - distribution look quite similar for each one.
 - Similar situation for 7 available stations - all boxplots look very alike.
 
-
+## SPI analysis
+The SPI analysis based on Lubusz voivodeship and its stations is available  in the `SPI_analysis_in_Lubusz.md` file.
+Most important conclusions:
+- The Lubusz voivodeship has moderate precipitation conditions with a tendency to become drier
+- There are periods where it was very rainy
+- Rainfall is always moderate in this region
+- Lubusz is becoming rainier in the recent years

@@ -1,24 +1,20 @@
 import pandas as pd
 import geopandas as gpd
-from .clipping import get_voivodeship_borders, clip_to_voivodeship
 from src.utils.utils import save_df
 
 
-def get_and_save_voi_missing_stations(
-    precip: pd.DataFrame, stations_gdf: gpd.GeoDataFrame, voi: str
+def get_and_save_missing_stations(
+    precip: pd.DataFrame, stations_gdf: gpd.GeoDataFrame
 ) -> None:
-    """Function to find and create list of missing stations in the chosen voivodeship.
-       The list is saved to the appropriate file.
+    """Function to find and create list of missing stations - the ones that are available in
+       the precipitation data and are not in the stations data. The list is saved to the appropriate file.
 
     Args:
         precip (pd.DataFrame): Data containing precipitation over years
         stations_gdf (gpd.GeoDataFrame): GeoDataFrame containing details about stations
-        voi (str): Voivodeship name
     """
-    vois = get_voivodeship_borders()
-    _, voi_gdf = clip_to_voivodeship(stations_gdf, vois, voi)
     merged_df_with_missing = precip.merge(
-        voi_gdf, how="left", left_on="station_code", right_on="ID"
+        stations_gdf, how="left", left_on="station_code", right_on="ID"
     )
     merged_df_with_missing = merged_df_with_missing[
         [
@@ -43,4 +39,4 @@ def get_and_save_voi_missing_stations(
         .drop_duplicates()
         .reset_index(drop=True)
     )
-    save_df(missing_stations_unique, f"{voi}_missing_stations.csv", "data")
+    save_df(missing_stations_unique, "missing_stations.csv", "data")

@@ -7,10 +7,12 @@ Byte-compiled / optimized / DLL files
 
 data/*
 !data/.gitkeep
-!data/ne_110m_admin_0_countries.zip
 
 results/*
 !results/.gitkeep
+
+notebooks/*
+!notebooks/.gitkeep
 
 # C extensions
 *.so
